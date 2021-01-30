@@ -6,6 +6,8 @@ Current stable API endpoint:
 PLEASE CONTACT rsg.group.here@gmail.com TO GET ACCESS TO OUR API
 ```
 
+Official API Demo: https://azbuki-ml.com/demo
+
 ## Check sentence in Word Knowledge Graph db
 
 _Usage:_
@@ -58,6 +60,9 @@ GET /api?pos=Петър плет плете
     ]
 ]
 ```
+
+- Universal multilingual labels reference: https://universaldependencies.org/u/pos/
+- Bulgarian-specific tagset reference: https://github.com/AzBuki-ML/public-data/blob/master/pos_tagset/pos_tagset.json
 
 ## Comma predictions
 
