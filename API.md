@@ -6,7 +6,7 @@ Current stable API endpoint:
 PLEASE CONTACT rsg.group.here@gmail.com TO GET ACCESS TO OUR API
 ```
 
-## Check sentence in Word Knoledge Graph db
+## Check sentence in Word Knowledge Graph db
 
 _Usage:_
 ```
@@ -25,7 +25,7 @@ GET /api?sent=Той%20спортува%20всеки%20ден
 ]
 ```
 
-## Check word in Word Knoledge Graph db
+## Check word in Word Knowledge Graph db
 
 _Usage:_
 ```
