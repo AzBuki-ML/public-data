@@ -8,9 +8,47 @@ PLEASE CONTACT rsg.group.here@gmail.com TO GET ACCESS TO OUR API
 
 Official API Demo: https://azbuki-ml.com/demo
 
+_JavaScript XMLHttpRequest Example:_
+
+```javascript
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "${API_ENDPOINT}/sentiment", true);
+xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+xhr.onreadystatechange = function() {
+  if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+    console.log(this.response);
+  }
+}
+
+xhr.send(JSON.stringify({ text: "Обичам да ям банани!" }));
+```
+
+_JavaScript Fetch API Example:_
+
+```javascript
+fetch("${API_ENDPOINT}/sentiment", {
+  method: 'POST',
+  headers: {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ text: "Обичам да ям банани!" })
+}).then(resp => resp.json().then(console.log));
+```
+
+# Deprecated: GET Requests REST API:
+
+_JavaScript Example:_
+
+```javascript
+fetch("${API_ENDPOINT}/api?sentiment=" + "Обичам да ям банани!")
+  .then(resp => resp.json().then(console.log));
+```
+
 ## Check sentence in Word Knowledge Graph db
 
-_Usage:_
+_Usage (Deprecated):_
 ```
 GET /api?sent=SENTENCE
 ```
@@ -29,7 +67,7 @@ GET /api?sent=Той%20спортува%20всеки%20ден
 
 ## Check word in Word Knowledge Graph db
 
-_Usage:_
+_Usage (Deprecated):_
 ```
 GET /api?word=WORD
 ```
@@ -43,7 +81,7 @@ GET /api?word=аванпост
 
 ## Part of Speech tagging
 
-_Usage:_
+_Usage (Deprecated):_
 ```
 GET /api?pos=SENTENCE
 ```
@@ -66,7 +104,7 @@ GET /api?pos=Петър плет плете
 
 ## Comma predictions
 
-_Usage:_
+_Usage (Deprecated):_
 ```
 GET /api?pnct=SENTENCE
 ```
@@ -84,6 +122,8 @@ GET /api?pnct=Ясно е че децата които растат с дома�
 
 Positive/Negative and Neutral/Expressive evaluation.
 
+_Usage (Deprecated):_
+
 ```
 GET /api?sentiment=SENTENCE
 ```
@@ -100,7 +140,7 @@ GET /api?sentiment=Обичам да ям сладолед
 
 ## Positive/Negative word lexicons
 
-_Usage:_
+_Usage (Deprecated):_
 ```
 GET /api?lex=SENTENCE
 ```
