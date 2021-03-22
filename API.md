@@ -49,8 +49,8 @@ POST /sent
 ```
 
 _Data:_
-```
-"{"text": "STRING"}"
+```json
+{ "text": "STRING" }
 ```
 
 _Example:_
@@ -78,8 +78,8 @@ POST /word
 ```
 
 _Data:_
-```
-"{"text": "STRING"}"
+```json
+{ "text": "STRING" }
 ```
 
 _Example:_
@@ -102,8 +102,8 @@ POST /pos
 ```
 
 _Data:_
-```
-"{"text": "STRING"}"
+```json
+{ "text": "STRING" }
 ```
 
 _Example:_
@@ -135,8 +135,8 @@ POST /pnct
 ```
 
 _Data:_
-```
-"{"text": "STRING"}"
+```json
+{ "text": "STRING" }
 ```
 
 _Example:_
@@ -161,8 +161,8 @@ POST /sentiment
 ```
 
 _Data:_
-```
-"{"text": "STRING"}"
+```json
+{ "text": "STRING" }
 ```
 
 _Example:_
@@ -188,8 +188,8 @@ POST /lex
 ```
 
 _Data:_
-```
-"{"text": "STRING"}"
+```json
+{ "text": "STRING" }
 ```
 
 _Example:_
@@ -205,6 +205,37 @@ fetch("${API_ENDPOINT}/lex", {
     {"coefficient": 0.166, "count": 1, "dictionary": {"мразя": 1}, "total_words": 6, "unique_count": 1}, // negative
     {"coefficient": 0.166, "count": 1, "dictionary": {"обичам": 1}, "total_words": 6, "unique_count": 1} // positive
 ]
+```
+
+## Text Generation and Smart Suggestions
+
+Generates `amount` number of words that cloud come after the inputted `text` in natural speech.
+
+_API Route:_
+```
+POST /gen
+```
+
+_Data:_
+```json
+{
+  "text": "STRING",
+  "amount": "INTEGER"
+}
+```
+
+- The `amount` field is **optional**. It defaults to `3`.
+
+_Example:_
+```javascript
+fetch("${API_ENDPOINT}/gen", {
+  method: 'POST',
+  headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+  body: JSON.stringify({ text: "Да бъдеш или да", amount: 2 })
+}).then(resp => resp.json().then(console.log));
+
+/// RESPONSE
+["не", "бъдеш"]
 ```
 
 # Deprecated: GET Requests REST API:
