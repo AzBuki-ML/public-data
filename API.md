@@ -37,6 +37,176 @@ fetch("${API_ENDPOINT}/sentiment", {
 }).then(resp => resp.json().then(console.log));
 ```
 
+# JSON HTTP API:
+
+The API works with standard HTTP POST requests, the body of which should be stringified JSON data. Usually you need to provide a `text` field and some additional fields for the different API routes according to this documentation.
+
+## Check sentence in Word Knowledge Graph db
+
+_API Route:_
+```
+POST /sent
+```
+
+_Data:_
+```
+"{"text": "STRING"}"
+```
+
+_Example:_
+```javascript
+fetch("${API_ENDPOINT}/sent", {
+  method: 'POST',
+  headers: { "Accept": "application/json", "Content-Type": "application/json" },
+  body: JSON.stringify({ text: "Той спортува всеки ден." })
+}).then(resp => resp.json().then(console.log));
+
+/// RESPONSE:
+[
+    ["той", null, 1, "именителен падеж", "той", "+вин. не`го, +крат. го, +дат. +остар. не`му, +крат. му, +лично мест.\n#1 За заместване на лице или предмет от мъжки род, за които се говори. _Исках да се срещна с доцент Харалампиев, но когато отидох, той беше излязъл. Тръгнахме за друг ресторант, но той пък беше затворен. Виждал ли си моя квартирант? — Изобщо не съм го виждал. Не съм виждал нито него, нито пък приятелката му._\n#2 За посочване на лица от мъжки род; този, това. _– Той — посочи към мене баща ми — ще дойде с тебе, а другият остава тук._", null, "pronominal_personal", "той\nтой\nнего\nго\nнему # Остаряла форма\nнего\nму\n"],
+    ["спортува", null, 0, "сег.вр., 3л., ед.ч. \nДруги форми: \nverb_intransitive_imperfective, мин.св.вр., 2л., ед.ч.; \nverb_intransitive_imperfective, мин.св.вр., 3л., ед.ч.; \n", "спортувам", "спортуваш, +несв. Занимавам се със спорт. _Хубаво е да спортуваш._+същ. [[спортуване]], +ср.", null, "verb_intransitive_imperfective", "ам, [^аъиеоуяю]ам\n\nам\nаш\nа\nаме\nате\nат\n\nах\nа\nа\nахме\nахте\nаха\n\nах\nаше\nаше\nахме\nахте\nаха\n\nай\nайте\n\nал\nалия\nалият\nала\nалата\nало\nалото\nали\nалите\n\nал\nалия\nалият\nала\nалата\nало\nалото\nали\nалите\n\nан\nания\nаният\nана\nаната\nано\nаното\nани\nаните\n\nащ\nащия\nащият\nаща\nащата\nащо\nащото\nащи\nащите\n\nайки\n"],
+    ["всеки", null, 1, "м.р., ед.ч. \nДруги форми: \npronominal_general, дателен падеж, предложна форма; \n", "всеки", "вся`ка, вся`ко, +мн. все`ки, _обобщ. мест._\n#1 Като +прил., само +ед. Който и да е елемент измежду елементите в една група, без изключение. _Всяка жена обича красивото. Всеки възпитан човек би постъпил така. Всяка вечер съм у тях. Не всяка година ходя на почивка._\n#2 Като +прил., само +мн. В съчетание с _числ._ бройни — която и да е група от елементи измежду елементите в по-обща група, без изключение. _На всеки два часа се стряскаше._\n#3 Като +същ., само +ед. все`ки, +вин. +остар. все`киго, +дат. +остар. все`киму. Което и да е лице без оглед на пола му измежду лицата в една група, без изключение. _Така всеки знае. Искам да се срещна с всеки от вас поотделно. Това всекиго може да обиди. Всекиму добро струва._\n* _За всеки случай._ — Евентуално.\n* _На всяка цена._ — Непременно.\n* _По всяка вероятност._ — Вероятно.", "(обобщ.мест.) всеки един, дядо и баба\n(обобщ.мест.) кой да е, какъв да е, всякакъв", "pronominal_general", "всеки\nвсеки\n-\n-\nвсекиго\nвсекиму\nвсеки\nвсяка\n-\nвсяко\n-\n- # Няма форма за множествено число.\n-\n"],
+    ["ден", null, 1, "ед.ч.", "ден", "деня`т, деня`, +мн. дни, (два) де`на и дни, +м.\n#1 Светлата част от денонощието от сутринта до вечерта. _Цял ден се разхождах из гората._\n#2 Денонощие. _След два дни заминаваме._\n#3 Период, определен за извършване на нещо. _Почивен ден. Пазарен ден. Сватбен ден._\n#4 Само +мн. Време, живот. _Прекарвам дните си в размисли и терзания. Безгрижни детски дни._\n#5 +Спец. В астрономията — промеждутък от време, необходим за завъртането на небесното тяло около оста му, или периодът, когато е огрявано от Слънцето.\n#6 Дата, свързана с някакво събитие или празник. _Рожден ден. Ден на родилната помощ._\n* _Бял ден._ — Добър, спокоен, уреден живот.\n* _Ден до пладне._ — Кратко време, за малко.\n* _Ден за ден._ — Без перспективи за бъдещето.\n* _Дните ми са преброени._ — Малко ми остава да живея, скоро ще умра.\n* _Добър ден!_ — За израз на подигравка, ако някой възприема нещо известно като ново.\n* _Имам дни._ — Ще живея още.\n* _За черни дни._ — В случай на нужда, при необходимост.\n* _И утре е ден._ — За подчертаване, че някаква работа може да се отложи.\n* _Силен на деня._ — Влиятелен, властен.\n* _Утрешния ден._ — Бъдещето.\n* _До ден днешен._ — До днес, до този момент.\n* _Тия дни._ — В близко време; скоро.", "дата, денонощие\nсветлина, видело, слънце", "noun_male", "ен, ден\nен\nеня\nенят\nни\nните\nена, ни\n-\n"]
+]
+```
+
+## Check word in Word Knowledge Graph db
+
+_API Route:_
+```
+POST /word
+```
+
+_Data:_
+```
+"{"text": "STRING"}"
+```
+
+_Example:_
+```javascript
+fetch("${API_ENDPOINT}/word", {
+  method: 'POST',
+  headers: { "Accept": "application/json", "Content-Type": "application/json" },
+  body: JSON.stringify({ text: "аванпост" })
+}).then(resp => resp.json().then(console.log));
+
+/// RESPONSE:
+[["аванпост", null, 1, "ед.ч.", "аванпост", null, null, "noun_male", "0, [^аъиеоуяю]\n0\nа\nът\nове\nовете\nа\n-\n"]]
+```
+
+## Part of Speech tagging
+
+_API Route:_
+```
+POST /pos
+```
+
+_Data:_
+```
+"{"text": "STRING"}"
+```
+
+_Example:_
+```javascript
+fetch("${API_ENDPOINT}/pos", {
+  method: 'POST',
+  headers: { "Accept": "application/json", "Content-Type": "application/json" },
+  body: JSON.stringify({ text: "Петър плет плете." })
+}).then(resp => resp.json().then(console.log));
+
+/// RESPONSE:
+[
+    [
+        ["Петър", "PROPN", "Npmsi", "петър", "nsubj", 3], 
+        ["плет", "NOUN", "Ncmsi", "плет", "nmod", 1], 
+        ["плете", "VERB", "Vpitf-r3s", "плета-(се)", "root", 0]
+    ]
+]
+```
+
+- Universal multilingual labels reference: https://universaldependencies.org/u/pos/
+- Bulgarian-specific tagset reference: https://github.com/AzBuki-ML/public-data/blob/master/pos_tagset/pos_tagset.json
+
+## Comma predictions
+
+_API Route:_
+```
+POST /pnct
+```
+
+_Data:_
+```
+"{"text": "STRING"}"
+```
+
+_Example:_
+```javascript
+fetch("${API_ENDPOINT}/pnct", {
+  method: 'POST',
+  headers: { "Accept": "application/json", "Content-Type": "application/json" },
+  body: JSON.stringify({ text: "Ясно е че децата които растат с домашни любимци се учат в ранна възраст да проявяват отговорно отношение." })
+}).then(resp => resp.json().then(console.log));
+
+/// RESPONSE:
+[ "Ясно", "е", ",COMMA", "че", "децата", ",COMMA", "които", "растат", "с", "домашни", "любимци", ",COMMA", "се", "учат", "в", "ранна", "възраст", "да", "проявяват", "отговорно", "отношение" ]
+```
+
+## Sentiment analysis
+
+Positive/Negative and Neutral/Expressive evaluation.
+
+_API Route:_
+```
+POST /sentiment
+```
+
+_Data:_
+```
+"{"text": "STRING"}"
+```
+
+_Example:_
+```javascript
+fetch("${API_ENDPOINT}/sentiment", {
+  method: 'POST',
+  headers: { "Accept": "application/json", "Content-Type": "application/json" },
+  body: JSON.stringify({ text: "Обичам да ям сладолед!" })
+}).then(resp => resp.json().then(console.log));
+
+/// RESPONSE:
+[
+    13.865050315856934, // N < 0.5: neutral; N > 0.5: expressive;
+    13.826891899108887  // N < 0.5: negative; N > 0.5: positivie;
+]
+```
+
+## Positive/Negative word lexicons
+
+_API Route:_
+```
+POST /lex
+```
+
+_Data:_
+```
+"{"text": "STRING"}"
+```
+
+_Example:_
+```javascript
+fetch("${API_ENDPOINT}/lex", {
+  method: 'POST',
+  headers: { "Accept": "application/json", "Content-Type": "application/json" },
+  body: JSON.stringify({ text: "Обичам морето, ала мразя, когато изгарям." })
+}).then(resp => resp.json().then(console.log));
+
+/// RESPONSE
+[
+    {"coefficient": 0.166, "count": 1, "dictionary": {"мразя": 1}, "total_words": 6, "unique_count": 1}, // negative
+    {"coefficient": 0.166, "count": 1, "dictionary": {"обичам": 1}, "total_words": 6, "unique_count": 1} // positive
+]
+```
+
 # Deprecated: GET Requests REST API:
 
 _JavaScript Example:_
