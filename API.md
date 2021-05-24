@@ -71,7 +71,7 @@ _Response body and headers:_
 ```js
 {
   status: 200, // 500 | 200
-  body: Buffer, // Buffer full of binary data in mp3 format. If there was an internal error (500) the buffer should be empty OR null.
+  body: Buffer, // Buffer full of binary data in mp3 format. If there was an internal error (500) the buffer could be empty or missing.
   headers: {
     'Content-Disposition': `attachment; filename=${FILE-UID}.mp3`, // This header could be used to track the file generation logs based on the UUID - e.g. cost, characters synthesized, debugging info.
     .[...]
