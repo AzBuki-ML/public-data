@@ -41,6 +41,69 @@ fetch("${API_ENDPOINT}/sentiment", {
 
 The API works with standard HTTP POST requests, the body of which should be stringified JSON data. Usually you need to provide a `text` field and some additional fields for the different API routes according to this documentation.
 
+## Text-to-Speech
+
+_API Route:_
+```
+POST /SpeechSynthesizer
+```
+
+_Data:_
+```js
+{
+  "text": "STRING", // REQUIRED
+  "apiKey": "STRING", // REQUIRED
+  "voice": "STRING - male|female|Rado|Gabbie" // OPTIONAL; Defaults to "male"
+}
+```
+
+_Request body and headers:_
+```js
+{
+  body: JSON.stringify({text, apiKey, [voice, ...]}),
+  headers: {
+    "Content-Type": "application/json"
+  }
+}
+```
+
+_Response body and headers:_
+```js
+{
+  status: 200, // 500 | 200
+  body: Buffer, // Buffer full of binary data in mp3 format. If there was an internal error (500) the buffer should be empty OR null.
+  headers: {
+    'Content-Disposition': `attachment; filename=${FILE-UID}.mp3`, // This header could be used to track the file generation logs based on the UUID - e.g. cost, characters synthesized, debugging info.
+    .[...]
+  }
+}
+```
+
+_Example:_
+```javascript
+// Fetch API (DO NOT STORE YOUR API KEY IN A FRONT-END APPLICATION!)
+fetch(endpoint, {
+  method: 'POST',
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ text: input, apiKey: API_KEY, voice: 'Gabbie' })
+}).then(resp => resp.binary().then(/* save it */));
+```
+```javascript
+// Node.JS with `needle`
+needle.post(
+  endpoints,
+  { text: input, apiKey: API_KEY, voice: 'Gabbie' },
+  { json: true },
+  function (error, response) {
+    if (response.statusCode !== 200) {
+      console.error(error);
+      console.log(response.body);
+    } else {
+      fs.writeFileSync('output.mp3', response.body);
+    }
+  });
+```
+
 ## Check sentence in Word Knowledge Graph db
 
 _API Route:_
