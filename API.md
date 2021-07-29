@@ -53,7 +53,7 @@ _Data:_
 {
   "text": "STRING", // REQUIRED
   "apiKey": "STRING", // REQUIRED
-  "voice": "STRING - male|female|Rado|Gabbie" // OPTIONAL; Defaults to "male"
+  "voice": "STRING - male|female" // OPTIONAL; Defaults to "male"
 }
 ```
 
