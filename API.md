@@ -53,14 +53,15 @@ _Data:_
 {
   "text": "STRING", // REQUIRED
   "apiKey": "STRING", // REQUIRED
-  "voice": "STRING - male|female" // OPTIONAL; Defaults to "male"
+  "voice": "STRING - male|female", // OPTIONAL; Defaults to "male"
+  "ssml": "BOOLEAN", // OPTIONAL; Defaults to false
+  "compress": "BOOLEAN" // OPTIONAL; If true, compresses the output to mp3 format
 }
-```
 
 _Request body and headers:_
 ```js
 {
-  body: JSON.stringify({text, apiKey, [voice, ...]}),
+  body: JSON.stringify({ text, apiKey, voice, ssml, compress }),
   headers: {
     "Content-Type": "application/json"
   }
@@ -71,34 +72,36 @@ _Response body and headers:_
 ```js
 {
   status: 200, // 500 | 200
-  body: Buffer, // Buffer full of binary data in mp3 format. If there was an internal error (500) the buffer could be empty or missing.
+  body: Buffer, // Buffer containing binary data. If there was an internal error (500), the buffer could be empty or missing.
   headers: {
-    'Content-Disposition': `attachment; filename=${FILE-UID}.mp3`, // This header could be used to track the file generation logs based on the UUID - e.g. cost, characters synthesized, debugging info.
-    .[...]
+    'Content-Disposition': `attachment; filename=${FILE-UID}.mp3`, // This header is used for file tracking - e.g., cost, characters synthesized, debugging.
   }
 }
 ```
 
 _Example:_
 ```javascript
-// Fetch API (DO NOT STORE YOUR API KEY IN A FRONT-END APPLICATION!)
+// Fetch API Example (DO NOT STORE YOUR API KEY IN A FRONT-END APPLICATION!)
 fetch(endpoint, {
   method: 'POST',
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ text: input, apiKey: API_KEY, voice: 'Gabbie' })
-}).then(resp => resp.binary().then(/* save it */));
+  body: JSON.stringify({ text: input, apiKey: API_KEY, voice: 'Gabbie', ssml: true, compress: true })
+}).then(resp => resp.arrayBuffer().then(buffer => {
+  // Process the buffer
+}));
 ```
 ```javascript
 // Node.JS with `needle`
 needle.post(
-  endpoints,
-  { text: input, apiKey: API_KEY, voice: 'Gabbie' },
+  endpoint,
+  { text: input, apiKey: API_KEY, voice: 'Gabbie', ssml: true, compress: true },
   { json: true },
   function (error, response) {
     if (response.statusCode !== 200) {
       console.error(error);
       console.log(response.body);
     } else {
+      // Process the response
       fs.writeFileSync('output.mp3', response.body);
     }
   });
